@@ -1,0 +1,7 @@
+        questionList.add("Vad heter Einstein i förnamn?");
+        questionList.add("Hur många länder ingår i EU?");
+        questionList.add("I vilken världsdel ligger Grönland?");
+        questionList.add("Hur många ben har en myra?");
+        questionList.add("Hur många nack-kotor har en giraff?");
+        questionList.add("Vilket år hade Einsteins allmänna relativitetsteori 100-årsjubileum?");
+        questionList.add("Hur mår Johannes idag?");

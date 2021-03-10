@@ -5,19 +5,21 @@ import java.util.Scanner;
 
 public class Main implements Serializable {
 
-    Scanner input = new Scanner(System.in);
+    Quiz quiz = new Quiz();
 
-    Quiz quiz = new Quiz("Hur många får äger Johan", "1","0","5" );
+    Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
+        //Quiz quiz = new Quiz();
+
 
         main.startMenu();
     }
 
     void startMenu() throws Exception {
 
-        quiz.questionList2();
+
 
         while (true) {
             System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
@@ -35,14 +37,18 @@ public class Main implements Serializable {
 
             switch (nr) {
                 case 1:
-                    System.out.println("Här ska första frågan för första spelaren komma...");
+                    quiz.playGame();
                     break;
                 case 2:
                     System.out.println("-------------------");
                     System.out.println("Lista av frågor");
                     System.out.println("-------------------");
-                    quiz.writeObject();
+                    //quiz.writeObject();
                     quiz.readObject();
+                    quiz.showList();
+                    //quiz.questionWithNr();
+
+
                     break;
                 case 3:
                     //quiz.writeObject();
@@ -57,6 +63,7 @@ public class Main implements Serializable {
                     // kod block
                     break;
                 case 0:
+                    quiz.writeObject();
                     System.exit(0);
                 default:
 
