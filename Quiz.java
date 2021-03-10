@@ -102,14 +102,14 @@ public class Quiz implements Serializable {
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("Vilken fråga vill du ta bort? ");
 
-        for(int i = 1; i < questionList.size(); i++){
+        for(int i = 0; i < questionList.size(); i += 2){
             System.out.println(i + ". " + questionList.get(i));
         }
 
         int removeQ = sc.nextInt();
 
         questionList
-                .clear();
+                .remove(removeQ);
 
         questionList
                 .forEach(System.out::println);
