@@ -1,20 +1,25 @@
 package quiz;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Serializable {
+
+    Scanner input = new Scanner(System.in);
+
+    Quiz quiz = new Quiz("Hur många får äger Johan", "1","0","5" );
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
 
         main.startMenu();
     }
-    Quiz quiz = new Quiz();
+
     void startMenu() throws Exception {
 
-        quiz.questionList();
-        while (true) {
+        quiz.questionList2();
 
+        while (true) {
             System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
             System.out.println(" Tryck in en siffra för vad du vill göra");
             System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
@@ -26,11 +31,6 @@ public class Main {
             System.out.println(" > [0] Avsluta programmet \n");
             System.out.println("Skriv ditt val här: ");
 
-            //System.out.println(" > Tryck 0 för att avsluta programmet < ");
-
-
-
-            Scanner input = new Scanner(System.in);
             int nr = input.nextInt();
 
             switch (nr) {
@@ -41,8 +41,7 @@ public class Main {
                     System.out.println("-------------------");
                     System.out.println("Lista av frågor");
                     System.out.println("-------------------");
-
-
+                    quiz.writeObject();
                     quiz.readObject();
                     break;
                 case 3:
@@ -51,8 +50,8 @@ public class Main {
                     quiz.writeObject();
                     break;
                 case 4:
-                    quiz.writeObject();
                     quiz.removeQuestion();
+                    quiz.writeObject();
                     break;
                 case 5:
                     // kod block
@@ -64,6 +63,6 @@ public class Main {
             }
             quiz.pause();
         }
-
     }
+
 }
