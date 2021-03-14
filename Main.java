@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main implements Serializable {
@@ -11,8 +12,6 @@ public class Main implements Serializable {
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        //Quiz quiz = new Quiz();
-
 
         main.startMenu();
     }
@@ -20,8 +19,8 @@ public class Main implements Serializable {
     void startMenu() throws Exception {
 
 
-
         while (true) {
+
             System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
             System.out.println(" Tryck in en siffra för vad du vill göra");
             System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
@@ -33,7 +32,8 @@ public class Main implements Serializable {
             System.out.println(" > [0] Avsluta programmet \n");
             System.out.println("Skriv ditt val här: ");
 
-            int nr = input.nextInt();
+
+            char nr = input.next().charAt(0);
 
             switch (nr) {
                 case 1:
@@ -43,11 +43,8 @@ public class Main implements Serializable {
                     System.out.println("-------------------");
                     System.out.println("Lista av frågor");
                     System.out.println("-------------------");
-                    //quiz.writeObject();
                     quiz.readObject();
                     quiz.showList();
-                    //quiz.questionWithNr();
-
 
                     break;
                 case 3:
@@ -56,6 +53,7 @@ public class Main implements Serializable {
                     quiz.writeObject();
                     break;
                 case 4:
+                    quiz.readObject();
                     quiz.removeQuestion();
                     quiz.writeObject();
                     break;
@@ -66,10 +64,11 @@ public class Main implements Serializable {
                     quiz.writeObject();
                     System.exit(0);
                 default:
+                    System.out.println("Ange endast siffror mellan 0 och 5");
 
             }
             quiz.pause();
         }
-    }
 
+    }
 }

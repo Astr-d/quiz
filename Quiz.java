@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -14,21 +15,25 @@ public class Quiz implements Serializable {
         this.answer = answer;
     }
 
-    public Quiz(){}
+    public Quiz() {
+    }
 
     LinkedList<String> questionList = new LinkedList<String>();
 
+
     Scanner sc = new Scanner(System.in);
+
+    HashMap<String, String> questionList2 = null;
 
     void playGame() throws Exception {
 
         readObject();
 
-        for(int i = 0; i < questionList.size(); i += 2){
+        for (int i = 0; i < questionList.size(); i += 2) {
             System.out.println(questionList.get(i));
             String userInput = sc.nextLine();
 
-            if(userInput.equals(questionList.get(i + 1))){
+            if (userInput.equals(questionList.get(i + 1))) {
                 System.out.println("Du svarade rätt! :) \n");
             } else {
                 System.out.println("Du svarade fel :( \n");
@@ -38,11 +43,23 @@ public class Quiz implements Serializable {
 
     void showList() {
 
-        for(int i = 0; i < questionList.size(); i += 2){
+        for (int i = 0; i < questionList.size(); i += 2) {
             System.out.println(questionList.get(i));
+
+        /*
+        [0] Fråga 1
+        [1] Svar fråga 1
+        [2] Fråga 2
+        [3] Svar fråga 2
+        */
+        /*
+        * [0] Fråga 1
+          [1] Svar fråga 1
+          Hashmap tar två element och gör till ett.
+          * [0] Fråga 1 Svar 1
+        * */
         }
     }
-
 
     void addQuestion() {
 
@@ -59,15 +76,11 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String addA1 = sc.nextLine(); // ja / nej
 
-
-
         System.out.println("Skriv in svarsalternativ 2:");
         String answer2 = sc.nextLine();
 
         System.out.println("Är detta svar rätt?");
         String addA2 = sc.nextLine();
-
-
 
         System.out.println("Skriv in svarsalternativ 3:");
         String answer3 = sc.nextLine();
@@ -75,7 +88,8 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String addA3 = sc.nextLine();
 
-        questionList.add(addQ + "\n | " + answer1 + " | " + answer2 + " | " + answer3 + " | ");
+        questionList.add(addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3 + "\n");
+
         if (addA1.equals(answer)) {
             questionList.add(answer1);
         }
@@ -85,35 +99,33 @@ public class Quiz implements Serializable {
         if (addA3.equals(answer)) {
             questionList.add(answer3);
         }
-        /*
-       * [0] Fråga 1
-       * [1] Svar 1
-       * [3] Fråga 2
-       * [4] Svar 2
-       *
-       * */
+
+        // questionList2.put(addQ, answer);
 
     }
 
-    void removeQuestion(){
+    void removeQuestion() {
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("Ta bort en fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
-        System.out.println("Vilken fråga vill du ta bort? ");
+        System.out.println("Vilken fråga vill du ta bort? \n");
 
-        for(int i = 0; i < questionList.size(); i += 2){
+        for (int i = 0; i < questionList.size(); i += 2) {
             System.out.println(i + ". " + questionList.get(i));
         }
 
         int removeQ = sc.nextInt();
+        sc.nextLine();
 
-        questionList
-                .remove(removeQ);
+        for (int i = 0; i < 2; i++) {
+            questionList
+                    .remove(removeQ);
+        }
+    }
 
-        questionList
-                .forEach(System.out::println);
-
+    void editQuestion() {
+        
     }
 
     void writeObject() throws Exception {
@@ -142,8 +154,8 @@ public class Quiz implements Serializable {
         new java.util.Scanner(System.in).nextLine();
     }
 
-    void questionWithNr(){
-        for(int i = 0; i < questionList.size(); i++){
+    void questionWithNr() {
+        for (int i = 0; i < questionList.size(); i++) {
             System.out.println(i + ". " + questionList.get(i));
         }
     }
