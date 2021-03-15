@@ -46,18 +46,6 @@ public class Quiz implements Serializable {
         for (int i = 0; i < questionList.size(); i += 2) {
             System.out.println(questionList.get(i));
 
-        /*
-        [0] Fråga 1
-        [1] Svar fråga 1
-        [2] Fråga 2
-        [3] Svar fråga 2
-        */
-        /*
-        * [0] Fråga 1
-          [1] Svar fråga 1
-          Hashmap tar två element och gör till ett.
-          * [0] Fråga 1 Svar 1
-        * */
         }
     }
 
@@ -91,13 +79,13 @@ public class Quiz implements Serializable {
         questionList.add(addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3 + "\n");
 
         if (addA1.equals(answer)) {
-            questionList.add(answer1);
+            questionList.add("Rätt svar är: " + answer1);
         }
         if (addA2.equals(answer)) {
-            questionList.add(answer2);
+            questionList.add("Rätt svar är: " + answer2);
         }
         if (addA3.equals(answer)) {
-            questionList.add(answer3);
+            questionList.add("Rätt svar är: " + answer3);
         }
 
         // questionList2.put(addQ, answer);
@@ -109,23 +97,73 @@ public class Quiz implements Serializable {
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("Ta bort en fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
-        System.out.println("Vilken fråga vill du ta bort? \n");
+
 
         for (int i = 0; i < questionList.size(); i += 2) {
-            System.out.println(i + ". " + questionList.get(i));
-        }
+            System.out.println(i + ". " + questionList.get(i));// varannat element [0], [2]
 
+        }
+        System.out.println("Vilken fråga vill du ta bort? \n");
         int removeQ = sc.nextInt();
         sc.nextLine();
 
         for (int i = 0; i < 2; i++) {
             questionList
                     .remove(removeQ);
+
         }
     }
 
     void editQuestion() {
-        
+
+        System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
+        System.out.println("Redigera en fråga");
+        System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
+        System.out.println("Vilken fråga vill du redigera? \n");
+
+        for (int i = 0; i < questionList.size(); i++) {
+            System.out.println(i + ". " + questionList.get(i));
+        }
+
+        System.out.println("Vilken fråga vill du redigera? ");
+        int editQ = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Vilken svar vill du redigera? ");
+        int editA = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Redigera din fråga: ");
+        String modifyQ = sc.nextLine();
+
+        System.out.println("Skriv in svarsalternativ 1:");
+        String modifyA1 = sc.nextLine();
+
+        System.out.println("Är detta svar rätt?");
+        String setA1 = sc.nextLine(); // ja / nej
+
+        System.out.println("Skriv in svarsalternativ 2:");
+        String modifyA2 = sc.nextLine();
+
+        System.out.println("Är detta svar rätt?");
+        String setA2 = sc.nextLine();
+
+        System.out.println("Skriv in svarsalternativ 3:");
+        String modifyA3 = sc.nextLine();
+
+        System.out.println("Är detta svar rätt?");
+        String setA3 = sc.nextLine();
+
+        questionList.set(editQ, modifyQ + "\nA) "  + modifyA1 + "\nB) "+ modifyA2 + "\nC) "+ modifyA3 + "\n ");
+
+        if (setA1.equals(answer)) {
+            questionList.set(editA, "Rätt svar är: " + modifyA1);
+        }
+        if (setA2.equals(answer)) {
+            questionList.set(editA, "Rätt svar är: " + modifyA2);
+        }
+        if (setA3.equals(answer)) {
+            questionList.set(editA, "Rätt svar är: " + modifyA3);
+        }
+
     }
 
     void writeObject() throws Exception {
@@ -139,7 +177,7 @@ public class Quiz implements Serializable {
 
     }
 
-    void readObject() throws Exception {
+    void readObject() throws Exception { // if (questList.length() <= )
 
         FileInputStream fis = new FileInputStream("src/quiz/questions.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
