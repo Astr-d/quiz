@@ -16,6 +16,8 @@ public class Main implements Serializable {
         Scanner input = new Scanner(System.in);
 
         Quiz quiz = new Quiz();
+        Player player = new Player();
+
 
         while (true) {
             try {
@@ -24,33 +26,39 @@ public class Main implements Serializable {
 
                 switch (nr) {
                     case 1:
+                        player.player1();
+                        player.player2();
+                        player.writePlayer();
+                        System.out.println("\n* * * * * * * * * * * *");
+                        System.out.println("Nu börjar spelet!");
+                        System.out.println("* * * * * * * * * * * *");
                         quiz.playGame();
                         break;
                     case 2:
                         System.out.println("-------------------");
                         System.out.println("Lista av frågor");
                         System.out.println("-------------------");
-                        quiz.readObject();
+                        quiz.readQuestion();
                         quiz.showList();
                         break;
                     case 3:
                         //quiz.writeObject();
-                        quiz.readObject();
+                        quiz.readQuestion();
                         quiz.addQuestion();
-                        quiz.writeObject();
+                        quiz.writeQuestion();
                         break;
                     case 4:
-                        quiz.readObject();
+                        quiz.readQuestion();
                         quiz.removeQuestion();
-                        quiz.writeObject();
+                        quiz.writeQuestion();
                         break;
                     case 5:
-                        quiz.readObject();
+                        quiz.readQuestion();
                         quiz.editQuestion();
-                        quiz.writeObject();
+                        quiz.writeQuestion();
                         break;
                     case 0:
-                        quiz.writeObject();
+                        quiz.writeQuestion();
                         System.exit(0);
                     default:
                         System.out.println("Ange endast siffror mellan 0 och 5");

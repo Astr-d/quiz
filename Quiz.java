@@ -10,7 +10,17 @@ public class Quiz implements Serializable {
     String question;
     String answer = "ja";
 
+    String answerA = "A";
+    String answerB = "B";
+    String answerC = "C";
+
+    int id;
+    private static int idCounter = 0;
+
     public Quiz(String question, String answer) {
+        this.id = idCounter;
+        idCounter += 1;
+
         this.question = question;
         this.answer = answer;
     }
@@ -19,21 +29,18 @@ public class Quiz implements Serializable {
     }
 
     LinkedList<String> questionList = new LinkedList<String>();
-
-
     Scanner sc = new Scanner(System.in);
-
-    HashMap<String, String> questionList2 = null;
 
     void playGame() throws Exception {
 
-        readObject();
+        readQuestion();
 
         for (int i = 0; i < questionList.size(); i += 2) {
-            System.out.println(questionList.get(i));
+            idCounter++;
+            System.out.println(idCounter + ". " + questionList.get(i));
             String userInput = sc.nextLine();
 
-            if (userInput.equals(questionList.get(i + 1))) {
+            if (userInput.equalsIgnoreCase(questionList.get(i + 1))) {
                 System.out.println("Du svarade rätt! :) \n");
             } else {
                 System.out.println("Du svarade fel :( \n");
@@ -44,8 +51,8 @@ public class Quiz implements Serializable {
     void showList() {
 
         for (int i = 0; i < questionList.size(); i += 2) {
-            System.out.println(questionList.get(i));
-
+            idCounter += 1; // Fungerar bara en gång, adderas när man visar listan flera gånger.
+            System.out.println(idCounter + ". " + questionList.get(i) + "\n");
         }
     }
 
@@ -76,19 +83,18 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String addA3 = sc.nextLine();
 
-        questionList.add(addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3 + "\n");
+        questionList.add(addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3);
 
-        if (addA1.equals(answer)) {
-            questionList.add("Rätt svar är: " + answer1);
+        if (addA1.equalsIgnoreCase(answer)) {
+            questionList.add(answerA);
         }
-        if (addA2.equals(answer)) {
-            questionList.add("Rätt svar är: " + answer2);
+        if (addA2.equalsIgnoreCase(answer)) {
+            questionList.add(answerB);
         }
-        if (addA3.equals(answer)) {
-            questionList.add("Rätt svar är: " + answer3);
+        if (addA3.equalsIgnoreCase(answer)) {
+            questionList.add(answerC);
         }
 
-        // questionList2.put(addQ, answer);
 
     }
 
@@ -122,7 +128,7 @@ public class Quiz implements Serializable {
         System.out.println("Vilken fråga vill du redigera? \n");
 
         for (int i = 0; i < questionList.size(); i++) {
-            System.out.println(i + ". " + questionList.get(i));
+            System.out.println(i + ". " + questionList.get(i) + "\n");
         }
 
         System.out.println("Vilken fråga vill du redigera? ");
@@ -152,23 +158,23 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String setA3 = sc.nextLine();
 
-        questionList.set(editQ, modifyQ + "\nA) "  + modifyA1 + "\nB) "+ modifyA2 + "\nC) "+ modifyA3 + "\n ");
+        questionList.set(editQ, modifyQ + "\nA) "  + modifyA1 + "\nB) "+ modifyA2 + "\nC) "+ modifyA3 );
 
         if (setA1.equals(answer)) {
-            questionList.set(editA, "Rätt svar är: " + modifyA1);
+            questionList.set(editA,answerA);
         }
         if (setA2.equals(answer)) {
-            questionList.set(editA, "Rätt svar är: " + modifyA2);
+            questionList.set(editA,answerB);
         }
         if (setA3.equals(answer)) {
-            questionList.set(editA, "Rätt svar är: " + modifyA3);
+            questionList.set(editA,answerC);
         }
 
     }
 
-    void writeObject() throws Exception {
+    void writeQuestion() throws Exception {
 
-        FileOutputStream fos = new FileOutputStream("src/quiz/questions.txt");
+        FileOutputStream fos = new FileOutputStream("src/quiz/Files/questions.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(questionList);
@@ -177,9 +183,10 @@ public class Quiz implements Serializable {
 
     }
 
-    void readObject() throws Exception { // if (questList.length() <= )
+    void readQuestion
+            () throws Exception { // if (questList.length() <= )
 
-        FileInputStream fis = new FileInputStream("src/quiz/questions.txt");
+        FileInputStream fis = new FileInputStream("src/quiz/Files/questions.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         questionList = (LinkedList<String>) ois.readObject();

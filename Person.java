@@ -2,6 +2,7 @@ package quiz;
 
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 abstract public class Person implements Serializable {
 
@@ -14,4 +15,8 @@ abstract public class Person implements Serializable {
         this.age = age;
         this.eMail = eMail;
     }
+
+    public Person() {
+    }
+
 }
