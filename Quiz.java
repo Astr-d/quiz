@@ -18,8 +18,6 @@ public class Quiz implements Serializable {
     private static int idCounter = 0;
 
     public Quiz(String question, String answer) {
-        this.id = idCounter;
-        idCounter += 1;
 
         this.question = question;
         this.answer = answer;
@@ -27,9 +25,10 @@ public class Quiz implements Serializable {
 
     public Quiz() {
     }
-
-    LinkedList<String> questionList = new LinkedList<String>();
+    //Quiz quiz = new Quiz();
+    LinkedList<Quiz> questionList = new LinkedList<>();
     Scanner sc = new Scanner(System.in);
+
 
     void playGame() throws Exception {
 
@@ -40,7 +39,7 @@ public class Quiz implements Serializable {
             System.out.println(idCounter + ". " + questionList.get(i));
             String userInput = sc.nextLine();
 
-            if (userInput.equalsIgnoreCase(questionList.get(i + 1))) {
+            if (userInput.equalsIgnoreCase(questionList.get(i).answer)) {
                 System.out.println("Du svarade rätt! :) \n");
             } else {
                 System.out.println("Du svarade fel :( \n");
@@ -50,9 +49,9 @@ public class Quiz implements Serializable {
 
     void showList() {
 
-        for (int i = 0; i < questionList.size(); i += 2) {
+        for (int i = 0; i < questionList.size(); i ++) {
             idCounter += 1; // Fungerar bara en gång, adderas när man visar listan flera gånger.
-            System.out.println(idCounter + ". " + questionList.get(i) + "\n");
+            System.out.println(idCounter + ". " + questionList.get(i).question + "\n");
         }
     }
 
@@ -83,16 +82,19 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String addA3 = sc.nextLine();
 
-        questionList.add(addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3);
+        //questionList.add(new Quiz(addQ + answer1 + answer2 + answer3, answerA));
 
         if (addA1.equalsIgnoreCase(answer)) {
-            questionList.add(answerA);
+            questionList.add(new Quiz(addQ + answer1 + answer2 + answer3, answerA));
+
         }
         if (addA2.equalsIgnoreCase(answer)) {
-            questionList.add(answerB);
+            questionList.add(new Quiz(addQ + answer1 + answer2 + answer3, answerB));
+
         }
         if (addA3.equalsIgnoreCase(answer)) {
-            questionList.add(answerC);
+            questionList.add(new Quiz(addQ + answer1 + answer2 + answer3, answerC));
+
         }
 
 
@@ -105,19 +107,17 @@ public class Quiz implements Serializable {
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
 
 
-        for (int i = 0; i < questionList.size(); i += 2) {
-            System.out.println(i + ". " + questionList.get(i));// varannat element [0], [2]
+        for (int i = 0; i < questionList.size(); i ++) {
+            System.out.println(i + ". " + questionList.get(i).question);// varannat element [0], [2]
 
         }
         System.out.println("Vilken fråga vill du ta bort? \n");
         int removeQ = sc.nextInt();
         sc.nextLine();
 
-        for (int i = 0; i < 2; i++) {
-            questionList
-                    .remove(removeQ);
-
-        }
+        //for (int i = 0; i < 2; i++) { }
+        questionList
+                             .remove(removeQ);
     }
 
     void editQuestion() {
@@ -128,7 +128,7 @@ public class Quiz implements Serializable {
         System.out.println("Vilken fråga vill du redigera? \n");
 
         for (int i = 0; i < questionList.size(); i++) {
-            System.out.println(i + ". " + questionList.get(i) + "\n");
+            System.out.println(i + ". " + questionList.get(i).question + "\n");
         }
 
         System.out.println("Vilken fråga vill du redigera? ");
@@ -158,16 +158,19 @@ public class Quiz implements Serializable {
         System.out.println("Är detta svar rätt?");
         String setA3 = sc.nextLine();
 
-        questionList.set(editQ, modifyQ + "\nA) "  + modifyA1 + "\nB) "+ modifyA2 + "\nC) "+ modifyA3 );
+        questionList.set(editQ, new Quiz(modifyQ +"\nA) " + modifyA1 +  "\nB) " +  modifyA2+  "\nC) " +  modifyA3, answerA));
 
         if (setA1.equals(answer)) {
-            questionList.set(editA,answerA);
+            //questionList.set(editA,answerA);
+            questionList.set(editQ, new Quiz(modifyQ +"\nA) " + modifyA1 +  "\nB) " +  modifyA2+  "\nC) " +  modifyA3, answerA));
         }
         if (setA2.equals(answer)) {
-            questionList.set(editA,answerB);
+            //questionList.set(editA,answerB);
+            questionList.set(editQ, new Quiz(modifyQ +"\nA) " + modifyA1 +  "\nB) " +  modifyA2+  "\nC) " +  modifyA3, answerB));
         }
         if (setA3.equals(answer)) {
-            questionList.set(editA,answerC);
+            //questionList.set(editA,answerC);
+            questionList.set(editQ, new Quiz(modifyQ +"\nA) " + modifyA1 +  "\nB) " +  modifyA2+  "\nC) " +  modifyA3, answerC));
         }
 
     }
@@ -183,13 +186,12 @@ public class Quiz implements Serializable {
 
     }
 
-    void readQuestion
-            () throws Exception { // if (questList.length() <= )
+    void readQuestion() throws Exception { // if (questList.length() <= )
 
         FileInputStream fis = new FileInputStream("src/quiz/Files/questions.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
-        questionList = (LinkedList<String>) ois.readObject();
+        questionList = (LinkedList<Quiz>) ois.readObject();
         ois.close();
 
     }

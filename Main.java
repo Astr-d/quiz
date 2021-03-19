@@ -1,12 +1,13 @@
 package quiz;
 
+import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main implements Serializable {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception, NotSerializableException {
         Main main = new Main();
         main.menuSwitch();
     }
@@ -29,10 +30,8 @@ public class Main implements Serializable {
                         player.player1();
                         player.player2();
                         player.writePlayer();
-                        System.out.println("\n* * * * * * * * * * * *");
-                        System.out.println("Nu börjar spelet!");
-                        System.out.println("* * * * * * * * * * * *");
-                        quiz.playGame();
+                        player.readPlayer();
+                        player.switchPlayer();
                         break;
                     case 2:
                         System.out.println("-------------------");
@@ -43,7 +42,7 @@ public class Main implements Serializable {
                         break;
                     case 3:
                         //quiz.writeObject();
-                        quiz.readQuestion();
+                        //quiz.readQuestion();
                         quiz.addQuestion();
                         quiz.writeQuestion();
                         break;
@@ -69,6 +68,9 @@ public class Main implements Serializable {
                 System.out.println("Ange endast siffror mellan 0 och 5");
                 input.next();
                 quiz.pause();
+            } catch (NotSerializableException e) {
+                System.out.println("Hello");
+                player.switchPlayer();
             }
         }
     }
