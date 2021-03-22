@@ -7,18 +7,23 @@ import java.util.Scanner;
 
 public class Main implements Serializable {
 
+    Scanner input = new Scanner(System.in);
+    Quiz quiz = new Quiz();
+    Player player = new Player();
+    Time time = new Time();
+
     public static void main(String[] args) throws Exception, NotSerializableException {
         Main main = new Main();
         main.menuSwitch();
     }
 
+
     void menuSwitch() throws Exception {
 
-        Scanner input = new Scanner(System.in);
-
-        Quiz quiz = new Quiz();
-        Player player = new Player();
-
+       /* public SimpleThread (String str){
+            super(str);
+        new Time("Thread1 ").start();
+        new Time("Thread2 ").start();*/
 
         while (true) {
             try {
@@ -27,11 +32,14 @@ public class Main implements Serializable {
 
                 switch (nr) {
                     case 1:
+
                         player.player1();
                         player.player2();
                         player.writePlayer();
                         player.readPlayer();
+                        //Start time
                         player.switchPlayer();
+                        //End time
                         break;
                     case 2:
                         System.out.println("-------------------");
@@ -41,7 +49,6 @@ public class Main implements Serializable {
                         quiz.showList();
                         break;
                     case 3:
-                        //quiz.writeObject();
                         //quiz.readQuestion();
                         quiz.addQuestion();
                         quiz.writeQuestion();
@@ -68,9 +75,12 @@ public class Main implements Serializable {
                 System.out.println("Ange endast siffror mellan 0 och 5");
                 input.next();
                 quiz.pause();
-            } catch (NotSerializableException e) {
+            } /*catch (NotSerializableException e) {
                 System.out.println("Hello");
-                player.switchPlayer();
+                //input.next();
+                //player.switchPlayer();
+            }*/catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
