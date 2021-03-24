@@ -7,85 +7,14 @@ import java.util.Scanner;
 
 public class Main implements Serializable {
 
-    Scanner input = new Scanner(System.in);
-    Quiz quiz = new Quiz();
-    Player player = new Player();
-    Time time = new Time();
+    public static void main(String[] args) throws Exception {
+        Game game = new Game();
+        Player player = new Player();
+        game.menuSwitch();
 
-    public static void main(String[] args) throws Exception, NotSerializableException {
-        Main main = new Main();
-        main.menuSwitch();
     }
 
-
-    void menuSwitch() throws Exception {
-
-       /* public SimpleThread (String str){
-            super(str);
-        new Time("Thread1 ").start();
-        new Time("Thread2 ").start();*/
-
-        while (true) {
-            try {
-                startMenu();
-                int nr = input.nextInt();
-
-                switch (nr) {
-                    case 1:
-
-                        player.player1();
-                        player.player2();
-                        player.writePlayer();
-                        player.readPlayer();
-                        //Start time
-                        player.switchPlayer();
-                        //End time
-                        break;
-                    case 2:
-                        System.out.println("-------------------");
-                        System.out.println("Lista av frågor");
-                        System.out.println("-------------------");
-                        quiz.readQuestion();
-                        quiz.showList();
-                        break;
-                    case 3:
-                        //quiz.readQuestion();
-                        quiz.addQuestion();
-                        quiz.writeQuestion();
-                        break;
-                    case 4:
-                        quiz.readQuestion();
-                        quiz.removeQuestion();
-                        quiz.writeQuestion();
-                        break;
-                    case 5:
-                        quiz.readQuestion();
-                        quiz.editQuestion();
-                        quiz.writeQuestion();
-                        break;
-                    case 0:
-                        quiz.writeQuestion();
-                        System.exit(0);
-                    default:
-                        System.out.println("Ange endast siffror mellan 0 och 5");
-                        break;
-                }
-                quiz.pause();
-            } catch (InputMismatchException e) {
-                System.out.println("Ange endast siffror mellan 0 och 5");
-                input.next();
-                quiz.pause();
-            } /*catch (NotSerializableException e) {
-                System.out.println("Hello");
-                //input.next();
-                //player.switchPlayer();
-            }*/catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    static void startMenu() {
+    void startMenu() {
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         System.out.println(" Tryck in en siffra för vad du vill göra");
@@ -98,4 +27,5 @@ public class Main implements Serializable {
         System.out.println(" > [0] Avsluta programmet \n");
         System.out.println("Skriv ditt val här: ");
     }
+
 }

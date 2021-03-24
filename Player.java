@@ -7,14 +7,10 @@ import java.util.Scanner;
 
 public class Player extends Person implements Serializable {
 
-
-    int score = 0;
-    int playedGames = 0;
-
+    private int score;
+    private int playedGames = 0;
 
     Quiz quiz = new Quiz();
-
-    //Scanner scanPlayer = new Scanner(System.in);
 
     LinkedList<Player> playerList = new LinkedList<>();
 
@@ -32,123 +28,39 @@ public class Player extends Person implements Serializable {
         super(name, age, eMail);
     }
 
-    public void player1() {
+    public void newPlayer() {
 
         Scanner scanPlayer = new Scanner(System.in);
+        for (int i = 0; i < 2; i++) {
+            System.out.println("* * * * * * * * * *");
+            System.out.println("* Skapa spelare *");
+            System.out.println("* * * * * * * * * *");
 
-        System.out.println("* * * * * * * * * *");
-        System.out.println("* Skapa spelare 1 *");
-        System.out.println("* * * * * * * * * *");
+            System.out.println("Namn: ");
+            String name = scanPlayer.nextLine(); // lagras namnet
+            // playerList.addFirst(name); //Trong hamnar på element 0
+            System.out.println("Ålder: ");
+            int age = scanPlayer.nextInt(); // lagras åldern
+            //playerList.add(age);
+            scanPlayer.nextLine();
 
-        System.out.println("Namn: ");
-        String name = scanPlayer.nextLine(); // lagras namnet
-        // playerList.addFirst(name); //Trong hamnar på element 0
-        System.out.println("Ålder: ");
-        int age = scanPlayer.nextInt(); // lagras åldern
-        //playerList.add(age);
-        scanPlayer.nextLine();
+            while (true) {
+                System.out.println("E-mejl: ");
+                String eMail = scanPlayer.nextLine(); //lagras email
 
-        while (true) {
-            System.out.println("E-mejl: ");
-            String eMail = scanPlayer.nextLine(); //lagras email
-
-            if (eMail.contains("@")) {
-                playerList.add(new Player(name,age,eMail, score, playedGames));
-                break;
+                if (eMail.contains("@")) {
+                    playerList.add(new Player(name, age, eMail, score, playedGames));
+                    break;
+                }
+                System.out.println("Försök igen!");
             }
-            System.out.println("Försök igen!");
-        }
-
-    }
-
-
-    public void player2() {
-        Scanner scanPlayer = new Scanner(System.in);
-
-        System.out.println("* * * * * * * * * *");
-        System.out.println("* Skapa spelare 2 *");
-        System.out.println("* * * * * * * * * *");
-
-        System.out.println("Namn: ");
-        String name2 = scanPlayer.nextLine();
-        //playerList.addFirst(name2); // Johan, hamna på element 0 och Trong element 3
-
-        System.out.println("Ålder: ");
-        int age2 = scanPlayer.nextInt();
-        //playerList.add(age2);
-        scanPlayer.nextLine();
-
-        // While-loopen låter oss komma tillbaka så vi kan skriva in e-posten igen
-
-        while (true) {
-
-            System.out.println("E-mejl: ");
-            String eMail2 = scanPlayer.nextLine();
-
-            if (eMail2.contains("@")) {
-                playerList.add(new Player(name2, age2, eMail2, score, playedGames));
-                break;
-            }
-            System.out.println("Försök igen!");
         }
     }
 
-    public void switchPlayer() throws Exception{
-        Scanner scanPlayer = new Scanner(System.in);
-        Time time = new Time();
-        quiz.readQuestion();
-        //readPlayer();
-
-        System.out.println("\n* * * * * * * * * * * *");
-        System.out.println("Nu börjar spelet!");
-        System.out.println("* * * * * * * * * * * *");
-
-        int idCounter = 0;
 
 
-        for (int i = 0; i < quiz.questionList.size(); i ++) {
-            Collections.shuffle(quiz.questionList);
-            idCounter++;
-            System.out.println("Gör dig redo " + playerList.get(0).name);
-            System.out.println(idCounter + ". " + quiz.questionList.get(i).question);
-            //tiden startar på spelare 1
-            time.start();
-            String userInput = scanPlayer.nextLine();
 
-            // Vad gör 'equalsIgnoreCase'?
-            if (userInput.equalsIgnoreCase(quiz.questionList.get(i).answer)) {
-                System.out.println("Du svarade rätt! :) \n");
-                //playerList.get(0).score++;
-
-            } else {
-                System.out.println("Du svarade fel :( \n");
-            }
-            Collections.shuffle(quiz.questionList);
-            System.out.println("Gör dig redo " + playerList.get(1).name);
-            System.out.println(idCounter + ". " + quiz.questionList.get(i).question);
-            //tiden startar för spelare 2
-            String userInput2 = scanPlayer.nextLine();
-
-            if (userInput2.equalsIgnoreCase(quiz.questionList.get(i).answer)) {
-                System.out.println("Du svarade rätt! :) \n");
-                //playerList.get(1).score++;
-            } else {
-                System.out.println("Du svarade fel :( \n");
-            }
-
-        }
-
-        // Grattis ****** vann!
-        // Player 1: 2/3 rätt Tid: 7.3s
-        // Player 2: 3/3 rätt Tid: 6.3s
-
-        System.out.println("Score for player 1: " + playerList.get(0).score + "/" + playerList.size());
-        System.out.println("Score for player 2: " + playerList.get(1).score);
-
-    }
-
-
-    void writePlayer() throws Exception, NotSerializableException, WriteAbortedException {
+    void writePlayer() throws Exception {
 
         FileOutputStream fos = new FileOutputStream("src/quiz/Files/players.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -172,13 +84,49 @@ public class Player extends Person implements Serializable {
 
     }
 
+    /*public int AddNewPlayedGames(boolean played){  // Vi skapar metod här för att plussa på playedgames per gång.
+        if(playedGames) {
+
+            //playedGames++;
+        }
+        returnplayedGames;
+    }
+    */
+
     @Override
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", eMail='" + eMail + '\'' +
-                ", score=" + score +
-                ", playedGames=" + playedGames ;
+                "score=" + score +
+                ", playedGames=" + playedGames +
+                ", quiz=" + quiz +
+                ", playerList=" + playerList +
+                '}';
+    }
+
+    public int addToScore(){
+        if (score <= 3) {
+            score++;
+        }
+        return score;
+    }
+
+    public void clearScore(){
+        score = 0;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getPlayedGames() {
+        return playedGames++;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setPlayedGames(int playedGames) {
+        this.playedGames = playedGames;
     }
 }

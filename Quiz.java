@@ -7,23 +7,24 @@ import java.util.Scanner;
 
 public class Quiz implements Serializable {
 
-    String question;
-    String answer = "ja";
+    private String question;
+    private String answer = "ja";
 
-    String answerA = "A";
-    String answerB = "B";
-    String answerC = "C";
+    private String answerA = "A";
+    private String answerB = "B";
+    private String answerC = "C";
 
     public Quiz(String question, String answer) {
-
         this.question = question;
         this.answer = answer;
+
     }
 
+    LinkedList<Quiz>questionList = new LinkedList<>();
     public Quiz() {
     }
 
-    LinkedList<Quiz> questionList = new LinkedList<>();
+
 
     void showList() {
         int idCounter = 0;
@@ -168,11 +169,15 @@ public class Quiz implements Serializable {
 
     void readQuestion() throws Exception {
 
-        FileInputStream fis = new FileInputStream("src/quiz/Files/questions.txt");
-        ObjectInputStream ois = new ObjectInputStream(fis);
+        try {
+            FileInputStream fis = new FileInputStream("src/quiz/Files/questions.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-        questionList = (LinkedList<Quiz>) ois.readObject();
-        ois.close();
+            questionList = (LinkedList<Quiz>) ois.readObject();
+            ois.close();
+        }catch(EOFException e){
+            System.out.println("Listan är tom");
+        }
     }
 
     public void pause() {
@@ -180,11 +185,7 @@ public class Quiz implements Serializable {
         new java.util.Scanner(System.in).nextLine();
     }
 
-    void questionWithNr() {
-        for (int i = 0; i < questionList.size(); i++) {
-            System.out.println(i + ". " + questionList.get(i));
-        }
-    }
+
 
     @Override
     public String toString() {
@@ -195,5 +196,45 @@ public class Quiz implements Serializable {
                 ", answerB='" + answerB + '\'' +
                 ", answerC='" + answerC + '\'' +
                 '}';
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public String getAnswerA() {
+        return answerA;
+    }
+
+    public String getAnswerB() {
+        return answerB;
+    }
+
+    public String getAnswerC() {
+        return answerC;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setAnswerA(String answerA) {
+        this.answerA = answerA;
+    }
+
+    public void setAnswerB(String answerB) {
+        this.answerB = answerB;
+    }
+
+    public void setAnswerC(String answerC) {
+        this.answerC = answerC;
     }
 }
