@@ -10,6 +10,8 @@ public class Main implements Serializable {
     public static void main(String[] args) throws Exception {
         Game game = new Game();
         Player player = new Player();
+        //player.readPlayer();
+        //new Time("test1").start();
         game.menuSwitch();
 
     }
@@ -29,3 +31,16 @@ public class Main implements Serializable {
     }
 
 }
+
+/*
+Lambdauttryck
+Streams
+Regular expressions
+Serialisering
+Date and time
+Avancerad objektorientering
+Threads
+Annotations
+Reflection
+Design patterns
+ */

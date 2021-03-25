@@ -8,8 +8,28 @@ public class Helper {
 
     public static String readString() {
 
-        String input = scan.nextLine();
+      String input = scan.nextLine();
+        return input;
+    }
 
-    return input;
+    public static int readInt() {
+
+        int input = scan.nextInt();
+
+        return input;
+    }
+
+    public static String emptyString() {
+
+        String input = scan.next();
+
+        return input;
+    }
+
+    public static int numberingList() {
+
+        int counter = 0;
+
+        return counter;
     }
 }

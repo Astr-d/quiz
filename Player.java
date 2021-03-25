@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Player extends Person implements Serializable {
+public class Player extends Person {
 
     private int score;
     private int playedGames = 0;
@@ -30,23 +30,25 @@ public class Player extends Person implements Serializable {
 
     public void newPlayer() {
 
-        Scanner scanPlayer = new Scanner(System.in);
+        String playerStringInfo = Helper.readString();
+        int playerIntInfo = Helper.readInt();
+
         for (int i = 0; i < 2; i++) {
             System.out.println("* * * * * * * * * *");
-            System.out.println("* Skapa spelare *");
+            System.out.println("*  Skapa spelare  *");
             System.out.println("* * * * * * * * * *");
 
             System.out.println("Namn: ");
-            String name = scanPlayer.nextLine(); // lagras namnet
-            // playerList.addFirst(name); //Trong hamnar på element 0
+            String name = playerStringInfo; // lagras namnet
+
             System.out.println("Ålder: ");
-            int age = scanPlayer.nextInt(); // lagras åldern
-            //playerList.add(age);
-            scanPlayer.nextLine();
+            int age = playerIntInfo; // lagras åldern
+
+            Helper.emptyString();
 
             while (true) {
                 System.out.println("E-mejl: ");
-                String eMail = scanPlayer.nextLine(); //lagras email
+                String eMail = playerStringInfo; //lagras email
 
                 if (eMail.contains("@")) {
                     playerList.add(new Player(name, age, eMail, score, playedGames));
@@ -60,38 +62,38 @@ public class Player extends Person implements Serializable {
 
 
 
-    void writePlayer() throws Exception {
+    public int AddNewPlayedGames(boolean played) {  // Vi skapar metod här för att plussa på playedgames per gång.
+        if (played) {
 
-        FileOutputStream fos = new FileOutputStream("src/quiz/Files/players.txt");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        oos.writeObject(playerList);
-        oos.flush();
-        oos.close();
-
-        System.out.println("Writeplayer success");
-
-    }
-
-    void readPlayer() throws Exception { // if (questList.length() <= )
-
-        FileInputStream fis = new FileInputStream("src/quiz/Files/players.txt");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-
-        playerList = (LinkedList<Player>) ois.readObject();
-        ois.close();
-        System.out.println("readPlayer success");
-
-    }
-
-    /*public int AddNewPlayedGames(boolean played){  // Vi skapar metod här för att plussa på playedgames per gång.
-        if(playedGames) {
-
-            //playedGames++;
+            playedGames++;
         }
-        returnplayedGames;
+        return playedGames;
     }
-    */
+
+    public void clearPlayedGames() {
+        playedGames = 0;
+    }
+
+
+    public int addToScore() { // Denna metoden lägger till score.
+        if (score <= 3) {
+            score++;
+        }
+        return score;
+    }
+
+    public void clearScore() {
+        score = 0;
+    } // Denna metoden nollställer score.
+
+    public int getScore() {
+        return score;
+    } // Denna metod retunerar score.
+
+    public int getPlayedGames() {
+        return playedGames;
+    } // dessa getPlayedGames, setScore, setPlayedGames
+      // för att kunna nå privata variablerna.
 
     @Override
     public String toString() {
@@ -101,32 +103,5 @@ public class Player extends Person implements Serializable {
                 ", quiz=" + quiz +
                 ", playerList=" + playerList +
                 '}';
-    }
-
-    public int addToScore(){
-        if (score <= 3) {
-            score++;
-        }
-        return score;
-    }
-
-    public void clearScore(){
-        score = 0;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getPlayedGames() {
-        return playedGames++;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void setPlayedGames(int playedGames) {
-        this.playedGames = playedGames;
     }
 }

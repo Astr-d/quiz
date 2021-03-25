@@ -11,13 +11,12 @@ public class Game implements Serializable {
     Quiz quiz = new Quiz();
     Player player = new Player();
     Main main = new Main();
+    SerializedObjects serialize = new SerializedObjects();
 
-    public void newGame() throws Exception{
-        quiz.readQuestion();
+    public void newGame() throws Exception {
 
-        Scanner scanPlayer = new Scanner(System.in);
+        serialize.readQuestion();
 
-        //readPlayer();
         System.out.println("* * * * * * * * * * * *");
         System.out.println("*  Nu börjar spelet!  *");
         System.out.println("* * * * * * * * * * * *");
@@ -26,53 +25,50 @@ public class Game implements Serializable {
         int idCounter = 0;
         //nollställa score
 
-        for (int i = 0; i < 3; i ++) {
-            Collections.shuffle(quiz.questionList);
+        player.playerList.get(0).clearScore();
+        player.playerList.get(1).clearScore();
 
-            //idCounter++;
-            System.out.println(player.playerList.get(0).getName() + "\n");
 
-            System.out.println(quiz.questionList.get(i).getQuestion() + "\n");
+        new Time().start();
 
-            //new Time("game-thread").start(); // Här ska tiden börja räknas
+        for (int i = 0; i < 3; i++) {
+            //Collections.shuffle(quiz.questionList);
+            //shuffleQuestion();
+            for (int j = 0; j < 2; j++) {
+                //idCounter++;
 
-            String userInput = scanPlayer.nextLine();
+                System.out.println(player.playerList.get(j).getName() + "\n");
 
-            // tråden ska stoppas
+                System.out.println(quiz.questionList.get(i).getQuestion() + "\n");
 
-            if (userInput.equalsIgnoreCase(quiz.questionList.get(i).getAnswer())) {
-                System.out.println("Du svarade rätt! :) \n");
-                player.playerList.get(0).addToScore();
+                validation(i, j);
 
-            } else {
-                System.out.println("Du svarade fel :( \n");
+                new Time().stop1();
+
             }
-
-            Collections.shuffle(quiz.questionList);
-            System.out.println( player.playerList.get(1).getName() + "\n");
-            System.out.println(quiz.questionList.get(i).getQuestion() + "\n");
-            //tiden startar f�r spelare 2
-            String userInput2 = scanPlayer.nextLine();
-
-            if (userInput2.equalsIgnoreCase(quiz.questionList.get(i).getAnswer())) {
-                System.out.println("Du svarade rätt! :) \n");
-                player.playerList.get(1).addToScore();
-            } else {
-                System.out.println("Du svarade fel :( \n");
-            }
-
         }
 
-        System.out.println(player.playerList.get(0).getName() + " " + player.playerList.get(0).getScore() + "/3");
-        System.out.println(player.playerList.get(1).getName() + " " + player.playerList.get(1).getScore() + "/3");
+        player.playerList.get(0).AddNewPlayedGames(true); // Hämtar spelarens playedGames och anropar addNewPlayedGames och då adderars-
+        player.playerList.get(1).AddNewPlayedGames(true); //- det för varje runda spelaren kör.
 
 
-        // Grattis ****** vann!
-        // Player 1: 2/3 r�tt Tid: 7.3s
-        // Player 2: 3/3 r�tt Tid: 6.3s
+        System.out.println(player.playerList.get(0).getName() + " " + player.playerList.get(0).getScore() + "/3, " + player.playerList.get(0).getPlayedGames());
+        System.out.println(player.playerList.get(1).getName() + " " + player.playerList.get(1).getScore() + "/3, " + player.playerList.get(1).getPlayedGames());
 
-       //System.out.println("Score for player 1: " + playerList.get(0).score + "/" + playerList.size());
-        // System.out.println("Score for player 2: " + playerList.get(1).score);
+    }
+
+    void validation(int questionIndex, int playerIndex) {
+
+        String userInput = Helper.readString();
+        String correctAnswer = quiz.questionList.get(questionIndex).getAnswer();
+
+        if (userInput.equalsIgnoreCase(correctAnswer)) {
+            System.out.println("Du svarade rätt! :) \n");
+            player.playerList.get(playerIndex).addToScore();
+
+        } else {
+            System.out.println("Du svarade fel :( \n");
+        }
 
     }
 
@@ -87,40 +83,35 @@ public class Game implements Serializable {
 
                 switch (nr) {
                     case 1:
-
                         player.newPlayer(); //skapa spelare
-                        player.writePlayer();
-                        player.readPlayer();
-
-                        //Start time
+                        serialize.writePlayer();
+                        serialize.readPlayer();
                         newGame();
-                        //End time
                         break;
                     case 2:
-                        quiz.readQuestion();
                         System.out.println("-------------------");
                         System.out.println("Lista av frågor");
                         System.out.println("-------------------");
-                        quiz.readQuestion();
+                        serialize.readQuestion();
                         quiz.showList();
                         break;
                     case 3:
-                        quiz.readQuestion();
+                        serialize.readQuestion();
                         quiz.addQuestion();
-                        quiz.writeQuestion();
+                        serialize.writeQuestion();
                         break;
                     case 4:
-                        quiz.readQuestion();
+                        serialize.readQuestion();
                         quiz.removeQuestion();
-                        quiz.writeQuestion();
+                        serialize.writeQuestion();
                         break;
                     case 5:
-                        quiz.readQuestion();
+                        serialize.readQuestion();
                         quiz.editQuestion();
-                        quiz.writeQuestion();
+                        serialize.writeQuestion();
                         break;
                     case 0:
-                        quiz.writeQuestion();
+                        serialize.writeQuestion();
                         System.exit(0);
                     default:
                         System.out.println("Ange endast siffror mellan 0 och 5");
@@ -135,14 +126,11 @@ public class Game implements Serializable {
                 System.out.println("Hello");
                 //input.next();
 
-            }*/catch (Exception e){
+            }*/ catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
-
-
 
 
 }
