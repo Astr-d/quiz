@@ -15,13 +15,16 @@ public class Time extends Thread {
     int i = 1;
 
     @Override
-    public void runLocalTime start = LocalTime.now();
+    public void run() {
+
         while (isRunning) {
+
             Scanner input = new Scanner(System.in);
-            System.out.println("Thread starts");
+            System.out.println("Thread starts" + Thread.currentThread().getName());
 
+                LocalTime start = LocalTime.now();
 
-                String userInput = input.nextLine();
+               Game.helper = input.nextLine();
 
                 LocalTime end = LocalTime.now();
 

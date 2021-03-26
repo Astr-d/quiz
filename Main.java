@@ -12,6 +12,14 @@ public class Main implements Serializable {
         Player player = new Player();
         //player.readPlayer();
         //new Time("test1").start();
+        Scanner sc = new Scanner(System.in);
+
+        //Game.UserInput = sc.nextLine();
+        //System.out.println(Game.UserInput);
+
+        System.out.println(Thread.currentThread().getName() + " getname ");
+        System.out.println(Thread.currentThread().isAlive() + " is alive");
+        System.out.println(Time.currentThread().isAlive() + " time thread is alive");
         game.menuSwitch();
 
     }

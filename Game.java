@@ -10,6 +10,9 @@ import java.util.*;
 
 public class Game implements Serializable {
 
+    public static String helper;
+    Scanner userInput = new Scanner(System.in);
+
     Quiz quiz = new Quiz();
     Player player = new Player();
     Main main = new Main();
@@ -44,10 +47,11 @@ public class Game implements Serializable {
 
     void validation(int questionIndex, int playerIndex) {
 
-        String userInput = Helper.readString();
+        helper = userInput.nextLine();
+
         String correctAnswer = quiz.questionList.get(questionIndex).getAnswer();
 
-        if (userInput.equalsIgnoreCase(correctAnswer)) {
+        if (helper.equalsIgnoreCase(correctAnswer)) {
             System.out.println("Du svarade rätt! :) \n");
             player.playerList.get(playerIndex).addToScore();
 
@@ -70,7 +74,8 @@ public class Game implements Serializable {
                     System.out.println("Det finns inte fler frågor");
                 }
                 validation(i, j);
-                new Time().stop1();
+
+                //new Time().stop1();
 
             }
         }
