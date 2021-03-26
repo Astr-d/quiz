@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Player extends Person {
+public class Player extends Person implements Serializable{
 
     private int score;
     private int playedGames = 0;
@@ -30,25 +30,25 @@ public class Player extends Person {
 
     public void newPlayer() {
 
-        String playerStringInfo = Helper.readString();
-        int playerIntInfo = Helper.readInt();
-
+        int nr = Helper.numberingList();
         for (int i = 0; i < 2; i++) {
+            nr++;
             System.out.println("* * * * * * * * * *");
-            System.out.println("*  Skapa spelare  *");
+            System.out.println("* Skapa spelare " + nr + " *");
             System.out.println("* * * * * * * * * *");
 
             System.out.println("Namn: ");
-            String name = playerStringInfo; // lagras namnet
+            String name = Helper.readString(); // lagras namnet
 
             System.out.println("Ålder: ");
-            int age = playerIntInfo; // lagras åldern
+            int age = Helper.readInt(); // lagras åldern
 
-            Helper.emptyString();
+            Helper.readString();
+            //Helper.emptyString();
 
             while (true) {
                 System.out.println("E-mejl: ");
-                String eMail = playerStringInfo; //lagras email
+                String eMail = Helper.readString(); //lagras email
 
                 if (eMail.contains("@")) {
                     playerList.add(new Player(name, age, eMail, score, playedGames));
@@ -59,7 +59,34 @@ public class Player extends Person {
         }
     }
 
+    void writePlayer() throws Exception {
+        //try {
+        FileOutputStream fos = new FileOutputStream("src/quiz/Files/players.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+        oos.writeObject(playerList);
+        oos.flush();
+        oos.close();
+        //} catch (InvalidClassException e){
+
+        //}
+
+        System.out.println("Writeplayer success");
+    }
+
+    void readPlayer() throws Exception { // if (questList.length() <= )
+        //try {
+        FileInputStream fis = new FileInputStream("src/quiz/Files/players.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        playerList = (LinkedList<Player>) ois.readObject();
+        ois.close();
+        //}catch(InvalidClassException e){
+
+        //}
+        System.out.println("readPlayer success");
+
+    }
 
 
     public int AddNewPlayedGames(boolean played) {  // Vi skapar metod här för att plussa på playedgames per gång.

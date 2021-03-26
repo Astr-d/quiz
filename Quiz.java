@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Quiz {
+public class Quiz implements Serializable{
 
     private String question;
     private String answer = "ja";
@@ -108,8 +108,8 @@ public class Quiz {
         System.out.println("Vilken fråga vill du redigera? \n");
 
         int counter = Helper.numberingList();
-        String userStringInput = Helper.readString();
-        int userIntInput = Helper.readInt();
+        //String userStringInput = Helper.readString();
+        //int userIntInput = Helper.readInt();
 
         for (int i = 0; i < questionList.size(); i++) {
             counter++;
@@ -118,29 +118,29 @@ public class Quiz {
 
 
         System.out.println("Vilken fråga vill du redigera? ");
-        int editQ = userIntInput;
-        Helper.emptyString();
+        int editQ = Helper.readInt();
+        Helper.readString();
 
         System.out.println("Redigera din fråga: ");
-        String modifyQ = userStringInput;
+        String modifyQ = Helper.readString();
 
         System.out.println("Skriv in svarsalternativ 1:");
-        String modifyA1 = userStringInput;
+        String modifyA1 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String setA1 = userStringInput; // ja / nej
+        String setA1 = Helper.readString(); // ja / nej
 
         System.out.println("Skriv in svarsalternativ 2:");
-        String modifyA2 = userStringInput;
+        String modifyA2 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String setA2 = userStringInput;
+        String setA2 = Helper.readString();
 
         System.out.println("Skriv in svarsalternativ 3:");
-        String modifyA3 = userStringInput;
+        String modifyA3 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String setA3 = userStringInput;
+        String setA3 = Helper.readString();
 
 
         String newQuestionAnswer = modifyQ + "\nA) " + modifyA1 + "\nB) " + modifyA2 + "\nC) " + modifyA3;
@@ -163,7 +163,35 @@ public class Quiz {
             questionList.set(getIndex, new Quiz(newQA, answerC));
         }
     }
+    void writeQuestion() throws Exception {
+        //try {
+        FileOutputStream fos = new FileOutputStream("src/quiz/Files/questions.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+        oos.writeObject(questionList);
+        oos.flush();
+        oos.close();
+        //}catch(InvalidClassException e){
+
+        //}
+        System.out.println("WriteQuestion success");
+
+    }
+
+    void readQuestion() throws Exception {
+
+        try {
+            FileInputStream fis = new FileInputStream("src/quiz/Files/questions.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            questionList = (LinkedList<Quiz>) ois.readObject();
+            ois.close();
+        }catch(EOFException e){
+            System.out.println("Listan är tom");
+        }
+
+        System.out.println("Question success");
+    }
     public void pause() {
         System.out.println("\n> Tryck ENTER för att fortsätta < ");
         new java.util.Scanner(System.in).nextLine();

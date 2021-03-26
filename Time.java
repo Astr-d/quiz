@@ -1,6 +1,7 @@
 package quiz;
 
 import java.time.*;
+import java.util.Scanner;
 
 public class Time extends Thread {
 
@@ -14,47 +15,27 @@ public class Time extends Thread {
     int i = 1;
 
     @Override
-    public void run() {
-
+    public void runLocalTime start = LocalTime.now();
         while (isRunning) {
-
+            Scanner input = new Scanner(System.in);
             System.out.println("Thread starts");
 
-            System.out.println("Inside while-loop");
-            try {
 
-            /*for (int i = 0; i < 2; i++) {
-                System.out.println(player.playerList.get(i).getName());
-            }*/
+                String userInput = input.nextLine();
 
-                LocalTime start = LocalTime.now();
-
-
-                //String startEndTime = Helper.readString();
-                Helper.readString();
-
-                //sleep(2000);
-                //System.out.println(startEndTime);
                 LocalTime end = LocalTime.now();
 
                 double duration = Duration.between(start, end).toMillis() / 1000d;
 
-                System.out.println(duration + "s");
 
-
-            } catch (Exception e) {
-            }
-
+            System.out.println(duration + "s");
 
         }
-
-
     }
 
     public void stop1(){
         System.out.println("Thread stops");
         isRunning = false;
         }
-
 }
 

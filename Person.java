@@ -4,7 +4,7 @@ package quiz;
 import java.io.Serializable;
 import java.util.Scanner;
 
-abstract public class Person {
+abstract public class Person implements Serializable{
 
     private String name;
     private int age;
