@@ -82,7 +82,7 @@ public class Quiz implements Serializable{
     void removeQuestion() {
         Scanner sc = new Scanner(System.in);
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
-        System.out.println("Ta bort en fråga");
+        System.out.println("  Ta bort en fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
 
         int idCounter = 0;
@@ -193,6 +193,7 @@ public class Quiz implements Serializable{
         System.out.println("Question success");
     }
     public void pause() {
+
         System.out.println("\n> Tryck ENTER för att fortsätta < ");
         new java.util.Scanner(System.in).nextLine();
     }
