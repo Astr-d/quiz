@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Quiz implements Serializable{
+public class Quiz extends Thread implements Serializable  {
 
     private String question;
     private String answer = "ja";
@@ -179,6 +179,17 @@ public class Quiz implements Serializable{
 
     }
 
+    @Override
+    public void run() {
+        try {
+            readQuestion();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println("Tråden körs!");
+    }
+
     void readQuestion() throws Exception {
 
         try {
@@ -189,9 +200,10 @@ public class Quiz implements Serializable{
             ois.close();
         }catch(EOFException e){
             System.out.println("Listan är tom");
+            //e.printStackTrace();
         }
 
-        System.out.println("Question success");
+        //System.out.println("Question success");
     }
 
     public void pause() {

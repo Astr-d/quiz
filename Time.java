@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Time {
+public class Time  {
     public static LocalTime playerOneStart;
     public static LocalTime playerTwoStart;
 

@@ -29,7 +29,7 @@ public class Game implements Serializable {
         indexQuestionPlayer();
 
     }
-        //
+
     void validation(int questionIndex, int playerIndex) {
 
 
@@ -44,7 +44,7 @@ public class Game implements Serializable {
 
         } else {
 
-           receiveTime.endTime2(playerIndex);
+            receiveTime.endTime2(playerIndex);
             System.out.println("Du svarade fel :( \n");
         }
 
@@ -64,7 +64,7 @@ public class Game implements Serializable {
                     System.out.println("Det finns inte fler frågor");
                 }
 
-               receiveTime.startTime(player);
+                receiveTime.startTime(player);
                 validation(question, player);
             }
         }
@@ -118,7 +118,15 @@ public class Game implements Serializable {
 
     void menuSwitch() {
 
+
+        quiz.start();
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         while (true) {
+
             try {
                 main.startMenu();
                 int nr = Helper.readInt();
@@ -128,7 +136,7 @@ public class Game implements Serializable {
                     case 1:
                         receivePlayer.newPlayer(); //skapa spelare
                         receivePlayer.writePlayer();
-                        receivePlayer.readPlayer();
+                        //receivePlayer.readPlayer();
                         newGame();
                         break;
                     case 2:
@@ -137,21 +145,21 @@ public class Game implements Serializable {
                         System.out.println("*********************");
                         System.out.println("*  Lista av frågor  *");
                         System.out.println("*********************");
-                        quiz.readQuestion();
+                        //quiz.readQuestion();
                         quiz.showList();
                         break;
                     case 4:
-                        quiz.readQuestion();
+                        //quiz.readQuestion();
                         quiz.addQuestion();
                         quiz.writeQuestion();
                         break;
                     case 5:
-                        quiz.readQuestion();
+                        //quiz.readQuestion();
                         quiz.editQuestion();
                         quiz.writeQuestion();
                         break;
                     case 6:
-                        quiz.readQuestion();
+                        //quiz.readQuestion();
                         quiz.removeQuestion();
                         quiz.writeQuestion();
                         break;
