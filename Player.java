@@ -74,16 +74,14 @@ public class Player extends Person implements Serializable{
         System.out.println("Writeplayer success");
     }
 
-    void readPlayer() throws Exception { // if (questList.length() <= )
-        //try {
+    void readPlayer() throws Exception {
+
         FileInputStream fis = new FileInputStream("src/quiz/Files/players.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         playerList = (LinkedList<Player>) ois.readObject();
         ois.close();
-        //}catch(InvalidClassException e){
 
-        //}
         System.out.println("readPlayer success");
 
     }

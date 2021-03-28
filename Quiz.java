@@ -24,8 +24,9 @@ public class Quiz implements Serializable{
     public Quiz() {
     }
 
-    void showList() {
 
+
+    void showList() {
         int nr = Helper.numberingList();
 
         for (int i = 0; i < questionList.size(); i++) {
@@ -80,20 +81,21 @@ public class Quiz implements Serializable{
     }
 
     void removeQuestion() {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("  Ta bort en fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
 
-        int idCounter = 0;
+        int nr = Helper.numberingList();
 
         for (int i = 0; i < questionList.size(); i++) {
-            idCounter++;
-            System.out.println(idCounter + "(" + i + ")" + ". " + questionList.get(i).question);
-
+            nr++; // Fungerar bara en gång, adderas när man visar listan flera gånger.
+            System.out.println(nr + ". " + questionList.get(i).question + "\n");
         }
-        System.out.println("Vilken fråga vill du ta bort? \n");
-        int removeQ = sc.nextInt();
+
+        System.out.println("\nVilken fråga vill du ta bort? \n");
+        int removeQ = sc.nextInt() - 1;
         sc.nextLine();
 
         questionList
@@ -102,23 +104,22 @@ public class Quiz implements Serializable{
 
     void editQuestion() {
 
+        Helper.numberingList();
+
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("   Redigera en fråga    ");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("Vilken fråga vill du redigera? \n");
 
-        int counter = Helper.numberingList();
-        //String userStringInput = Helper.readString();
-        //int userIntInput = Helper.readInt();
+        int nr = Helper.numberingList();
 
         for (int i = 0; i < questionList.size(); i++) {
-            counter++;
-            System.out.println(counter + ". " + questionList.get(i).question + "\n");
+            nr++;
+            System.out.println(nr + ". " + questionList.get(i).question + "\n");
         }
 
-
         System.out.println("Vilken fråga vill du redigera? ");
-        int editQ = Helper.readInt();
+        int editQ = Helper.readInt() - 1;
         Helper.readString();
 
         System.out.println("Redigera din fråga: ");
@@ -192,6 +193,7 @@ public class Quiz implements Serializable{
 
         System.out.println("Question success");
     }
+
     public void pause() {
 
         System.out.println("\n> Tryck ENTER för att fortsätta < ");

@@ -12,12 +12,8 @@ public class Game implements Serializable {
     Quiz quiz = new Quiz();
     Player receivePlayer = new Player();
     Main main = new Main();
+    Time receiveTime = new Time();
 
-    public static LocalTime playerOneStart;
-    public static LocalTime playerTwoStart;
-
-    public static List<Duration> playerOneList = new ArrayList<>();
-    public static List<Duration> playerTwoList = new ArrayList<>();
 
     public void newGame() throws Exception {
 
@@ -33,7 +29,7 @@ public class Game implements Serializable {
         indexQuestionPlayer();
 
     }
-
+        //
     void validation(int questionIndex, int playerIndex) {
 
 
@@ -41,48 +37,14 @@ public class Game implements Serializable {
 
         if (Helper.readString().equalsIgnoreCase(correctAnswer)) {
 
-            if (playerIndex == 0) {
-
-                LocalTime playOneStop = LocalTime.now();
-
-                Duration playOneLapsed = Duration.between(playerOneStart, playOneStop);
-
-                playerOneList.add(playOneLapsed);
-
-                System.out.println(playOneLapsed.toMillis() / 1000d + " sekunder.");
-
-            } else if (playerIndex == 1) {
-
-                LocalTime playTwoStop = LocalTime.now();
-                Duration playerTwoLapsed = Duration.between(playerTwoStart, playTwoStop);
-                playerTwoList.add(playerTwoLapsed);
-                System.out.println(playerTwoLapsed.toMillis() / 1000d + " sekunder.");
-
-            }
-
+            receiveTime.endTime(playerIndex);
             System.out.println("Du svarade rätt! :) \n");
 
             receivePlayer.playerList.get(playerIndex).addToScore();
 
         } else {
 
-            if (playerIndex == 0) {
-
-                LocalTime playOneStop = LocalTime.now();
-                Duration playOneLapsed = Duration.between(playerOneStart, playOneStop);
-
-                playerOneList.add(playOneLapsed);
-                System.out.println(playOneLapsed.toMillis() / 1000d + " sekunder");
-
-
-            } else if (playerIndex == 1) {
-
-                LocalTime playTwoStop = LocalTime.now();
-                Duration playerTwoLapsed = Duration.between(playerTwoStart, playTwoStop);
-                playerTwoList.add(playerTwoLapsed);
-                System.out.println(playerTwoLapsed.toMillis() / 1000d + " sekunder");
-
-            }
+           receiveTime.endTime2(playerIndex);
             System.out.println("Du svarade fel :( \n");
         }
 
@@ -101,11 +63,8 @@ public class Game implements Serializable {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Det finns inte fler frågor");
                 }
-                if (player == 0) {
-                    playerOneStart = LocalTime.now();
-                } else if (player == 1) {
-                    playerTwoStart = LocalTime.now();
-                }
+
+               receiveTime.startTime(player);
                 validation(question, player);
             }
         }
@@ -121,12 +80,12 @@ public class Game implements Serializable {
         receivePlayer.playerList.get(1).AddNewPlayedGames(true); //- det för varje runda spelaren kör.
 
 
-        double sum = playerOneList.stream()
+        double sum = receiveTime.playerOneList.stream()
                 .collect(Collectors.summingDouble(Duration::toMillis));
         System.out.println(player1name + " => " + " Tid: " + sum / 1000d + " sekunder || " + " Antal rätt: " + player1Score + "/3 || "
                 + " Antal omgångar: " + player1PG);
 
-        double sum2 = playerTwoList.stream()
+        double sum2 = receiveTime.playerTwoList.stream()
                 .collect(Collectors.summingDouble(Duration::toMillis));
         System.out.println(player2name + " => " + " Tid: " + sum2 / 1000d + " sekunder || " + " Antal rätt: " + player2Score + "/3 || "
                 + " Antal omgångar: " + player2PG);
@@ -163,6 +122,7 @@ public class Game implements Serializable {
             try {
                 main.startMenu();
                 int nr = Helper.readInt();
+                Helper.readString();
 
                 switch (nr) {
                     case 1:
@@ -172,25 +132,27 @@ public class Game implements Serializable {
                         newGame();
                         break;
                     case 2:
+
+                    case 3:
                         System.out.println("*********************");
                         System.out.println("*  Lista av frågor  *");
                         System.out.println("*********************");
                         quiz.readQuestion();
                         quiz.showList();
                         break;
-                    case 3:
-                        quiz.readQuestion();
-                        quiz.addQuestion();
-                        quiz.writeQuestion();
-                        break;
                     case 4:
                         quiz.readQuestion();
-                        quiz.removeQuestion();
+                        quiz.addQuestion();
                         quiz.writeQuestion();
                         break;
                     case 5:
                         quiz.readQuestion();
                         quiz.editQuestion();
+                        quiz.writeQuestion();
+                        break;
+                    case 6:
+                        quiz.readQuestion();
+                        quiz.removeQuestion();
                         quiz.writeQuestion();
                         break;
                     case 0:

@@ -21,10 +21,11 @@ public class Main implements Serializable {
         System.out.println(" Tryck in en siffra för vad du vill göra");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         System.out.println(" > [1] Starta spelet");
-        System.out.println(" > [2] Visa en lista med frågorna");
-        System.out.println(" > [3] Lägg till en fråga");
-        System.out.println(" > [4] Ta bort en fråga");
+        System.out.println(" > [2] Visa HIGH SCORE's");
+        System.out.println(" > [3] Visa en lista med frågorna");
+        System.out.println(" > [4] Lägg till en fråga");
         System.out.println(" > [5] Redigera en fråga");
+        System.out.println(" > [6] Ta bort en fråga");
         System.out.println(" > [0] Avsluta programmet \n");
         System.out.println("Skriv ditt val här: ");
     }
