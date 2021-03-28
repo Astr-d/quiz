@@ -187,7 +187,7 @@ public class Quiz extends Thread implements Serializable  {
             e.printStackTrace();
         }
 
-        System.out.println("Tråden körs!");
+        //System.out.println("Tråden körs!");
     }
 
     void readQuestion() throws Exception {

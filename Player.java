@@ -1,16 +1,12 @@
 package quiz;
 
 import java.io.*;
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class Player extends Person implements Serializable{
 
     private int score;
     private int playedGames = 0;
-
-    Quiz quiz = new Quiz();
 
     LinkedList<Player> playerList = new LinkedList<>();
 
@@ -120,13 +116,10 @@ public class Player extends Person implements Serializable{
     } // dessa getPlayedGames, setScore, setPlayedGames
       // för att kunna nå privata variablerna.
 
+
     @Override
     public String toString() {
-        return "Player{" +
-                "score=" + score +
-                ", playedGames=" + playedGames +
-                ", quiz=" + quiz +
-                ", playerList=" + playerList +
-                '}';
+        return "Spelare: " + getName() + " :: Ålder: " + getAge() + " :: E-mejl: " + geteMail() + " :: Antal rätt: " + getScore() + "/3 :: Antal spelade spel: " + getPlayedGames();
     }
+
 }

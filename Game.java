@@ -13,6 +13,7 @@ public class Game implements Serializable {
     Player receivePlayer = new Player();
     Main main = new Main();
     Time receiveTime = new Time();
+    HighScore sendResult = new HighScore();
 
 
     public void newGame() throws Exception {
@@ -27,7 +28,7 @@ public class Game implements Serializable {
         receivePlayer.playerList.get(1).clearScore();
 
         indexQuestionPlayer();
-
+        sendResult.writeHighScore();
     }
 
     void validation(int questionIndex, int playerIndex) {
@@ -96,24 +97,34 @@ public class Game implements Serializable {
             System.out.println("\n=======================================");
             System.out.println("    Grattis " + player2name + " du vann!     ");
             System.out.println("=======================================");
+            sendResult.HSList.add(receivePlayer.playerList.get(1));
         } else if (player2Score < player1Score) {
             //Astrid har vunnit
             System.out.println("\n=======================================");
             System.out.println("  Grattis " + player1name + " du vann!");
             System.out.println("=======================================");
+            //Skickar in spelaren som har vunnit i listan som ska visas ut som highscore
+            sendResult.HSList.add(receivePlayer.playerList.get(0));
+
         } else if (player1Score == player2Score) {
             if (sum < sum2) {
                 //Astrid har vunnit
                 System.out.println("\n=======================================");
                 System.out.println("    Grattis " + player1name + " du vann!     ");
                 System.out.println("=======================================");
+                sendResult.HSList.add(receivePlayer.playerList.get(0));
+
             } else if (sum2 < sum) {
                 // Trong vunnit
                 System.out.println("\n=======================================");
                 System.out.println("    Grattis " + player2name + " du vann!     ");
                 System.out.println("=======================================");
+                sendResult.HSList.add(receivePlayer.playerList.get(1));
+
             }
         }
+
+        //HSList.add(player.playerList.get())
     }
 
     void menuSwitch() {
@@ -140,7 +151,9 @@ public class Game implements Serializable {
                         newGame();
                         break;
                     case 2:
-
+                        sendResult.readHighScore();
+                        sendResult.printScoreBoard();
+                        break;
                     case 3:
                         System.out.println("*********************");
                         System.out.println("*  Lista av frågor  *");

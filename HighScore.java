@@ -10,7 +10,7 @@ public class HighScore {
     Player playerInfo;
 
 
-    List<HighScore> HSList = new ArrayList<>();
+    List<Player> HSList = new ArrayList<>();
 
 
     /*
@@ -23,7 +23,7 @@ public class HighScore {
 
     void writeHighScore() throws Exception {
         //try {
-        FileOutputStream fos = new FileOutputStream("quiz/Files/highscore.txt");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\Admin\\Documents\\WORKSPACE\\EC_Utbildning\\Avancerad_java\\myAssignment\\src\\quiz\\Files\\highscore.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(HSList);
@@ -39,10 +39,10 @@ public class HighScore {
     void readHighScore() throws Exception {
 
         try {
-            FileInputStream fis = new FileInputStream("quiz/Files/highscore.txt");
+            FileInputStream fis = new FileInputStream("C:\\Users\\Admin\\Documents\\WORKSPACE\\EC_Utbildning\\Avancerad_java\\myAssignment\\src\\quiz\\Files\\highscore.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            HSList = (List<HighScore>) ois.readObject();
+            HSList = (List<Player>) ois.readObject();
             ois.close();
         }catch(EOFException e){
             System.out.println("Listan är tom");
@@ -51,4 +51,10 @@ public class HighScore {
         System.out.println("Read HighScore success");
     }
 
+    public void printScoreBoard(){
+
+        HSList.stream()
+                .forEach(System.out::println);
+
+    }
 }
