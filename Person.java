@@ -1,8 +1,6 @@
 package quiz;
 
-
 import java.io.Serializable;
-import java.util.Scanner;
 
 abstract public class Person implements Serializable{
 
@@ -18,7 +16,6 @@ abstract public class Person implements Serializable{
 
     public Person() {
     }
-
 
     public String getName() {
         return name;

@@ -1,13 +1,11 @@
 package quiz;
 
-import java.io.NotSerializableException;
 import java.io.Serializable;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+
 
 public class Main implements Serializable {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         Game game = new Game();
 
@@ -16,7 +14,11 @@ public class Main implements Serializable {
     }
 
     void startMenu() {
-
+        System.out.println("*************************************************************************************");
+        System.out.println("*                                                                                   *");
+        System.out.println("* VÄLKOMMEN TILL SPELET QUIZ!                                                       *");
+        System.out.println("*                                - made by :: Trong :: Astrid :: Johannes :: Johan  *");
+        System.out.println("*************************************************************************************");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         System.out.println(" Tryck in en siffra för vad du vill göra");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");

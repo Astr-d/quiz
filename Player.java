@@ -20,10 +20,6 @@ public class Player extends Person implements Serializable{
     public Player() {
     }
 
-    public Player(String name, int age, String eMail) {
-        super(name, age, eMail);
-    }
-
     public void newPlayer() {
 
         int nr = Helper.numberingList();
@@ -56,16 +52,14 @@ public class Player extends Person implements Serializable{
     }
 
     void writePlayer() throws Exception {
-        //try {
+
         FileOutputStream fos = new FileOutputStream("src/quiz/Files/players.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(playerList);
         oos.flush();
         oos.close();
-        //} catch (InvalidClassException e){
 
-        //}
 
         System.out.println("Writeplayer success");
     }

@@ -2,7 +2,6 @@ package quiz;
 
 import java.io.*;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class Quiz extends Thread implements Serializable  {
 
@@ -27,6 +26,7 @@ public class Quiz extends Thread implements Serializable  {
 
 
     void showList() {
+
         int nr = Helper.numberingList();
 
         for (int i = 0; i < questionList.size(); i++) {
@@ -36,32 +36,32 @@ public class Quiz extends Thread implements Serializable  {
     }
 
     void addQuestion() {
-        Scanner sc = new Scanner(System.in);
+
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("Lägg till din fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
 
         System.out.println("Skriv in din fråga här: ");
-        String addQ = sc.nextLine();
+        String addQ = Helper.readString();
 
         System.out.println("Skriv in svarsalternativ 1:");
-        String answer1 = sc.nextLine();
+        String answer1 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String addA1 = sc.nextLine(); // ja / nej
+        String addA1 = Helper.readString();
 
 
         System.out.println("Skriv in svarsalternativ 2:");
-        String answer2 = sc.nextLine();
+        String answer2 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String addA2 = sc.nextLine();
+        String addA2 = Helper.readString();
 
         System.out.println("Skriv in svarsalternativ 3:");
-        String answer3 = sc.nextLine();
+        String answer3 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String addA3 = sc.nextLine();
+        String addA3 = Helper.readString();
 
         String addQuestionAnswer = addQ + "\nA) " + answer1 + "\nB) " + answer2 + "\nC) " + answer3;
 
@@ -82,7 +82,7 @@ public class Quiz extends Thread implements Serializable  {
 
     void removeQuestion() {
 
-        Scanner sc = new Scanner(System.in);
+
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("  Ta bort en fråga");
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
@@ -95,16 +95,14 @@ public class Quiz extends Thread implements Serializable  {
         }
 
         System.out.println("\nVilken fråga vill du ta bort? \n");
-        int removeQ = sc.nextInt() - 1;
-        sc.nextLine();
+        int removeQ = Helper.readInt() - 1;
+        Helper.readString();
 
         questionList
                 .remove(removeQ);
     }
 
     void editQuestion() {
-
-        Helper.numberingList();
 
         System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
         System.out.println("   Redigera en fråga    ");
@@ -135,13 +133,13 @@ public class Quiz extends Thread implements Serializable  {
         String modifyA2 = Helper.readString();
 
         System.out.println("Är detta svar rätt?");
-        String setA2 = Helper.readString();
+        String setA2 = Helper.readString();;
 
         System.out.println("Skriv in svarsalternativ 3:");
-        String modifyA3 = Helper.readString();
+        String modifyA3 = Helper.readString();;
 
         System.out.println("Är detta svar rätt?");
-        String setA3 = Helper.readString();
+        String setA3 = Helper.readString();;
 
 
         String newQuestionAnswer = modifyQ + "\nA) " + modifyA1 + "\nB) " + modifyA2 + "\nC) " + modifyA3;

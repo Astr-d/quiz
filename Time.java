@@ -14,12 +14,15 @@ public class Time  {
 
     public void startTime(int player){
         if (player == 0) {
+            //Spelare 1  startar sin tid
             playerOneStart = LocalTime.now();
         } else if (player == 1) {
+            //Spelare 2 startar sin tid
             playerTwoStart = LocalTime.now();
         }
     }
 
+    // när man har svarat rätt
     public void endTime(int playerIndex){
 
         if (playerIndex == 0) {
@@ -36,12 +39,13 @@ public class Time  {
 
             LocalTime playTwoStop = LocalTime.now();
             Duration playerTwoLapsed = Duration.between(playerTwoStart, playTwoStop);
-            playerTwoList.add(playerTwoLapsed);
+            playerTwoList.add(playerTwoLapsed); // lagrar tiden i listan
             System.out.println(playerTwoLapsed.toMillis() / 1000d + " sekunder.");
 
         }
     }
 
+    //När man har svarat fel
     public void endTime2(int playerIndex){
         if (playerIndex == 0) {
 

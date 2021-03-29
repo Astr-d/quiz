@@ -2,10 +2,8 @@ package quiz;
 
 import java.io.Serializable;
 import java.time.Duration;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 public class Game implements Serializable {
 
@@ -18,37 +16,17 @@ public class Game implements Serializable {
 
     public void newGame() throws Exception {
 
-        quiz.readQuestion();
-
         System.out.println("* * * * * * * * * * * *");
         System.out.println("*  Nu börjar spelet!  *");
         System.out.println("* * * * * * * * * * * *\n");
 
+
         receivePlayer.playerList.get(0).clearScore();
         receivePlayer.playerList.get(1).clearScore();
 
+
         indexQuestionPlayer();
         sendResult.writeHighScore();
-    }
-
-    void validation(int questionIndex, int playerIndex) {
-
-
-        String correctAnswer = quiz.questionList.get(questionIndex).getAnswer();
-
-        if (Helper.readString().equalsIgnoreCase(correctAnswer)) {
-
-            receiveTime.endTime(playerIndex);
-            System.out.println("Du svarade rätt! :) \n");
-
-            receivePlayer.playerList.get(playerIndex).addToScore();
-
-        } else {
-
-            receiveTime.endTime2(playerIndex);
-            System.out.println("Du svarade fel :( \n");
-        }
-
     }
 
     void indexQuestionPlayer() {
@@ -66,11 +44,11 @@ public class Game implements Serializable {
                 }
 
                 receiveTime.startTime(player);
-                validation(question, player);
+                validation(question, player); // validerar om spelaren svarar rätt eller fel
             }
         }
 
-        int player1Score = receivePlayer.playerList.get(0).getScore();
+        int player1Score = receivePlayer.playerList.get(0).getScore(); // Hämtar de och lagrar de i ny variabel.
         int player2Score = receivePlayer.playerList.get(1).getScore();
         String player1name = receivePlayer.playerList.get(0).getName();
         String player2name = receivePlayer.playerList.get(1).getName();
@@ -80,15 +58,16 @@ public class Game implements Serializable {
         receivePlayer.playerList.get(0).AddNewPlayedGames(true); // Hämtar spelarens playedGames och anropar addNewPlayedGames och då adderars-
         receivePlayer.playerList.get(1).AddNewPlayedGames(true); //- det för varje runda spelaren kör.
 
-
-        double sum = receiveTime.playerOneList.stream()
+        // Ström som summerar tiderna från tidslistan
+        // 9.10 + 2,78....
+        double sumTime = receiveTime.playerOneList.stream()
                 .collect(Collectors.summingDouble(Duration::toMillis));
-        System.out.println(player1name + " => " + " Tid: " + sum / 1000d + " sekunder || " + " Antal rätt: " + player1Score + "/3 || "
+        System.out.println(player1name + " => " + " Tid: " + sumTime / 1000d + " sekunder || " + " Antal rätt: " + player1Score + "/3 || "
                 + " Antal omgångar: " + player1PG);
 
-        double sum2 = receiveTime.playerTwoList.stream()
+        double sumTime2 = receiveTime.playerTwoList.stream()
                 .collect(Collectors.summingDouble(Duration::toMillis));
-        System.out.println(player2name + " => " + " Tid: " + sum2 / 1000d + " sekunder || " + " Antal rätt: " + player2Score + "/3 || "
+        System.out.println(player2name + " => " + " Tid: " + sumTime2 / 1000d + " sekunder || " + " Antal rätt: " + player2Score + "/3 || "
                 + " Antal omgångar: " + player2PG);
 
 
@@ -105,16 +84,17 @@ public class Game implements Serializable {
             System.out.println("=======================================");
             //Skickar in spelaren som har vunnit i listan som ska visas ut som highscore
             sendResult.HSList.add(receivePlayer.playerList.get(0));
-
+                    //Om både spelarna har lika många poäng
+            // Denna else if är för tiden. Om båda har lika många poäng avgör tiden.
         } else if (player1Score == player2Score) {
-            if (sum < sum2) {
+            if (sumTime < sumTime2) {
                 //Astrid har vunnit
                 System.out.println("\n=======================================");
                 System.out.println("    Grattis " + player1name + " du vann!     ");
                 System.out.println("=======================================");
                 sendResult.HSList.add(receivePlayer.playerList.get(0));
 
-            } else if (sum2 < sum) {
+            } else if (sumTime2 < sumTime) {
                 // Trong vunnit
                 System.out.println("\n=======================================");
                 System.out.println("    Grattis " + player2name + " du vann!     ");
@@ -126,6 +106,28 @@ public class Game implements Serializable {
 
         //HSList.add(player.playerList.get())
     }
+    void validation(int questionIndex, int playerIndex) {
+
+
+        String correctAnswer = quiz.questionList.get(questionIndex).getAnswer();
+
+        //Scanner från helper som jämför med den korrekta svaren för respektive fråga.
+        if (Helper.readString().equalsIgnoreCase(correctAnswer)) {
+
+            receiveTime.endTime(playerIndex);
+            System.out.println("Du svarade rätt! :) \n");
+
+            receivePlayer.playerList.get(playerIndex).addToScore();
+
+        } else {
+
+            receiveTime.endTime2(playerIndex);
+            System.out.println("Du svarade fel :( \n");
+        }
+
+    }
+
+
 
     void menuSwitch() {
 
@@ -147,7 +149,7 @@ public class Game implements Serializable {
                     case 1:
                         receivePlayer.newPlayer(); //skapa spelare
                         receivePlayer.writePlayer();
-                        //receivePlayer.readPlayer();
+                        receivePlayer.readPlayer();
                         newGame();
                         break;
                     case 2:

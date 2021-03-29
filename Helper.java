@@ -6,7 +6,6 @@ public class Helper {
 
     private static Scanner scan = new Scanner(System.in);
 
-
     //Hjälper oss att skicka en scanner globalt
     public static String readString() {
 
