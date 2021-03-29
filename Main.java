@@ -5,8 +5,11 @@ import java.io.Serializable;
 
 public class Main implements Serializable {
 
-    public static void main(String[] args)  {
 
+
+    public static void main(String[] args) throws Exception  {
+        Player player = new Player();
+        player.readPlayer();
         Game game = new Game();
 
         game.menuSwitch();
@@ -34,15 +37,3 @@ public class Main implements Serializable {
 
 }
 
-/*
-Lambdauttryck
-Streams
-Regular expressions
-Serialisering
-Date and time
-Avancerad objektorientering
-Threads
-Annotations
-Reflection
-Design patterns
- */

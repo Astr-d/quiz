@@ -3,7 +3,7 @@ package quiz;
 import java.io.*;
 import java.util.LinkedList;
 
-public class Player extends Person implements Serializable{
+public class Player extends Person implements Serializable {
 
     private int score;
     private int playedGames = 0;
@@ -20,7 +20,7 @@ public class Player extends Person implements Serializable{
     public Player() {
     }
 
-    public void newPlayer() {
+    public void newPlayer()   {
 
         int nr = Helper.numberingList();
         for (int i = 0; i < 2; i++) {
@@ -43,7 +43,7 @@ public class Player extends Person implements Serializable{
                 String eMail = Helper.readString(); //lagras email
 
                 if (eMail.contains("@")) {
-                    playerList.add(new Player(name, age, eMail, score, playedGames));
+                    playerList.addFirst(new Player(name, age, eMail, score, playedGames));
                     break;
                 }
                 System.out.println("Försök igen!");
@@ -61,18 +61,18 @@ public class Player extends Person implements Serializable{
         oos.close();
 
 
-        System.out.println("Writeplayer success");
     }
 
     void readPlayer() throws Exception {
 
+        try{
         FileInputStream fis = new FileInputStream("src/quiz/Files/players.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         playerList = (LinkedList<Player>) ois.readObject();
         ois.close();
-
-        System.out.println("readPlayer success");
+         }catch (EOFException e) {
+        }
 
     }
 
@@ -108,12 +108,6 @@ public class Player extends Person implements Serializable{
     public int getPlayedGames() {
         return playedGames;
     } // dessa getPlayedGames, setScore, setPlayedGames
-      // för att kunna nå privata variablerna.
-
-
-    @Override
-    public String toString() {
-        return "Spelare: " + getName() + " :: Ålder: " + getAge() + " :: E-mejl: " + geteMail() + " :: Antal rätt: " + getScore() + "/3 :: Antal spelade spel: " + getPlayedGames();
-    }
+    // för att kunna nå privata variablerna.
 
 }

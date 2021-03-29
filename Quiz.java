@@ -23,8 +23,6 @@ public class Quiz extends Thread implements Serializable  {
     public Quiz() {
     }
 
-
-
     void showList() {
 
         int nr = Helper.numberingList();
@@ -170,13 +168,9 @@ public class Quiz extends Thread implements Serializable  {
         oos.writeObject(questionList);
         oos.flush();
         oos.close();
-        //}catch(InvalidClassException e){
-
-        //}
-        System.out.println("WriteQuestion success");
 
     }
-
+    // Härifrån körs tråden
     @Override
     public void run() {
         try {
@@ -185,7 +179,6 @@ public class Quiz extends Thread implements Serializable  {
             e.printStackTrace();
         }
 
-        //System.out.println("Tråden körs!");
     }
 
     void readQuestion() throws Exception {
@@ -198,10 +191,8 @@ public class Quiz extends Thread implements Serializable  {
             ois.close();
         }catch(EOFException e){
             System.out.println("Listan är tom");
-            //e.printStackTrace();
         }
 
-        //System.out.println("Question success");
     }
 
     public void pause() {

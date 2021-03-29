@@ -29,15 +29,4 @@ abstract public class Person implements Serializable{
         return eMail;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
 }

@@ -13,10 +13,10 @@ public class Time  {
     public static List<Duration> playerTwoList = new ArrayList<>();
 
     public void startTime(int player){
-        if (player == 0) {
+        if (player == 1) {
             //Spelare 1  startar sin tid
             playerOneStart = LocalTime.now();
-        } else if (player == 1) {
+        } else if (player == 0) {
             //Spelare 2 startar sin tid
             playerTwoStart = LocalTime.now();
         }
@@ -25,7 +25,7 @@ public class Time  {
     // när man har svarat rätt
     public void endTime(int playerIndex){
 
-        if (playerIndex == 0) {
+        if (playerIndex == 1) {
 
             LocalTime playOneStop = LocalTime.now();
 
@@ -35,7 +35,7 @@ public class Time  {
 
             System.out.println(playOneLapsed.toMillis() / 1000d + " sekunder.");
 
-        } else if (playerIndex == 1) {
+        } else if (playerIndex == 0) {
 
             LocalTime playTwoStop = LocalTime.now();
             Duration playerTwoLapsed = Duration.between(playerTwoStart, playTwoStop);
@@ -47,7 +47,7 @@ public class Time  {
 
     //När man har svarat fel
     public void endTime2(int playerIndex){
-        if (playerIndex == 0) {
+        if (playerIndex == 1) {
 
             LocalTime playOneStop = LocalTime.now();
             Duration playOneLapsed = Duration.between(playerOneStart, playOneStop);
@@ -56,7 +56,7 @@ public class Time  {
             System.out.println(playOneLapsed.toMillis() / 1000d + " sekunder");
 
 
-        } else if (playerIndex == 1) {
+        } else if (playerIndex == 0) {
 
             LocalTime playTwoStop = LocalTime.now();
             Duration playerTwoLapsed = Duration.between(playerTwoStart, playTwoStop);
@@ -64,6 +64,11 @@ public class Time  {
             System.out.println(playerTwoLapsed.toMillis() / 1000d + " sekunder");
 
         }
+    }
+
+    public void restartTime(){
+        playerOneList.clear();
+        playerTwoList.clear();
     }
 
 }

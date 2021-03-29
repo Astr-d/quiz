@@ -9,16 +9,7 @@ public class HighScore {
     Player playerInfo;
 
 
-    List<Player> HSList = new ArrayList<>();
-
-
-    /*
-    * För varje spelad omgång lägg till användarna i listan
-    * */
-
-
-
-
+    List<String> HSList = new ArrayList<>();
 
     void writeHighScore() throws Exception {
         //try {
@@ -41,16 +32,20 @@ public class HighScore {
             FileInputStream fis = new FileInputStream("C:\\Users\\Admin\\Documents\\WORKSPACE\\EC_Utbildning\\Avancerad_java\\myAssignment\\src\\quiz\\Files\\highscore.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            HSList = (List<Player>) ois.readObject();
+            HSList = (List<String>) ois.readObject();
             ois.close();
         }catch(EOFException e){
             System.out.println("Listan är tom");
         }
-
-        System.out.println("Read HighScore success");
     }
 
-    public void printScoreBoard(){
+    public void printScoreBoard() throws Exception {
+
+        readHighScore();
+
+        System.out.println("*******************************************");
+        System.out.println("*           HIGH SCORE's                  *");
+        System.out.println("*******************************************");
 
         HSList.stream()
                 .forEach(System.out::println);
